@@ -3,9 +3,10 @@ app = Flask(__name__)
 
 todos = [ { "label": "My first task", "done": False } , {"label": "My second task", "done":False},{"label": "My third task","done":False}]
 
-@app.route('/myroute', methods=['GET'])
-def hello_world():
-    return 'Hello World!'
+@app.route('/todos', methods=['GET'])
+def my_list():
+   json_todos = jsonify(todos)
+   return json_todos
 
 @app.route('/todos', methods=['POST'])
 def add_new_todo():
@@ -19,14 +20,6 @@ def delete_todo(position):
     print("This is the position to delete:", position)
     del todos[position]
     return jsonify(todos)
-
-@app.route('/todos', methods=['GET'])
-# def greeting():
-#     return "<h1>Hello!</h1>"
-def my_list():
-   json_todos = jsonify(todos)
-   return json_todos
-
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=3245, debug=True)
